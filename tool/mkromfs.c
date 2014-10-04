@@ -64,7 +64,12 @@ void processdir(DIR * dirp, const char * curpath, FILE * outfile, const char * p
             b = (hash >> 16) & 0xff; fwrite(&b, 1, 1, outfile);
             b = (hash >> 24) & 0xff; fwrite(&b, 1, 1, outfile);
 
-	    len = strlen(ent->d_name);
+	    printf("ID = %s\r\n",ent->d_name);
+	    printf("LS PATH = %s\r\n",fullpath+16);
+	    printf("prefix = %s\r\n",prefix);
+	    printf("curpath = %s\r\n",curpath);
+
+	    len = strlen(fullpath+16);
 	    b = (len >> 0) & 0xff; fwrite(&b,1,1,outfile);
 	    b = (len >> 8) & 0xff; fwrite(&b,1,1,outfile);
 	    b = (len >> 16) & 0xff; fwrite(&b,1,1,outfile);
@@ -72,7 +77,7 @@ void processdir(DIR * dirp, const char * curpath, FILE * outfile, const char * p
  	    int tmp;
 	    for(tmp=0;tmp<len;tmp++)
 	    {
-		fwrite((ent->d_name)+tmp,1,1,outfile);
+		fwrite((fullpath+16)+tmp,1,1,outfile);
 	    }
 
             fseek(infile, 0, SEEK_END);
