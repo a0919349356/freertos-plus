@@ -51,8 +51,10 @@ int fs_open(const char * path, int flags, int mode) {
         return -2;
 
     hash = hash_djb2((const uint8_t *) path, slash - path);
-    path = slash + 1;
-
+    if(flags==0){
+    	path = slash + 1;
+    }
+    
     for (i = 0; i < MAX_FS; i++) {
         if (fss[i].hash == hash)
             return fss[i].cb(fss[i].opaque, path, flags, mode);
