@@ -73,8 +73,8 @@ void ls_command(int n, char *argv[]){
 	int fd=fs_open(argv[1],1,O_RDONLY);
 
 	
-	if(fd==1)
-		return;
+	if(fd==-2)
+		fio_printf(1,"\r\ncan't find the file system!\r\n");
 
 }
 
