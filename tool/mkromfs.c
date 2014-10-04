@@ -30,7 +30,7 @@ void processdir(DIR * dirp, const char * curpath, FILE * outfile, const char * p
     struct dirent * ent;
     DIR * rec_dirp;
     uint32_t cur_hash = hash_djb2((const uint8_t *) curpath, hash_init);
-    uint32_t size, w, hash;
+    uint32_t size, w, hash,len;
     uint8_t b;
     FILE * infile;
 
@@ -63,6 +63,18 @@ void processdir(DIR * dirp, const char * curpath, FILE * outfile, const char * p
             b = (hash >>  8) & 0xff; fwrite(&b, 1, 1, outfile);
             b = (hash >> 16) & 0xff; fwrite(&b, 1, 1, outfile);
             b = (hash >> 24) & 0xff; fwrite(&b, 1, 1, outfile);
+
+	    len = strlen(ent->d_name);
+	    b = (len >> 0) & 0xff; fwrite(&b,1,1,outfile);
+	    b = (len >> 8) & 0xff; fwrite(&b,1,1,outfile);
+	    b = (len >> 16) & 0xff; fwrite(&b,1,1,outfile);
+	    b = (len >> 24) & 0xff; fwrite(&b,1,1,outfile);
+ 	    int tmp;
+	    for(tmp=0;tmp<len;tmp++)
+	    {
+		fwrite((ent->d_name)+tmp,1,1,outfile);
+	    }
+
             fseek(infile, 0, SEEK_END);
             size = ftell(infile);
             fseek(infile, 0, SEEK_SET);
@@ -132,3 +144,4 @@ int main(int argc, char ** argv) {
     
     return 0;
 }
+
