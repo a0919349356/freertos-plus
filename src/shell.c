@@ -66,9 +66,9 @@ void ls_command(int n, char *argv[]){
 		return;
 	}
 	int i;
-	for(i=0;argv[1][i]!='\0';i++)
-		if(argv[1][i+1]=='\0' && argv[1][i]!='/')
-			argv[1][i+1]='/',argv[1][i+2]='\0';	
+	for(i = 0 ; argv[1][i] != '\0' ; i++)
+		if(argv[1][i+1] == '\0' && argv[1][i] != '/')
+			argv[1][i+1] = '/',argv[1][i+2] = '\0';	
 
 	int fd=fs_open(argv[1],1,O_RDONLY);
 
