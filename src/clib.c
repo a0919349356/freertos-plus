@@ -19,6 +19,10 @@ size_t fio_printf(int fd, const char *format, ...){
 				case '%':
 					send_byte('%'); break;
 				case 'd':
+					tmpint = va_arg(v1, int);
+                                        tmpcharp = itoa(format[i+1]=='x'?"0123456789abcdef":"0123456789ABCDEF", tmpint, format[i+1]=='d'?10: 16);
+                                        fio_write(fd, tmpcharp, strlen(tmpcharp));
+                                        break;
 				case 'x':
 				case 'X':
 					tmpint = va_arg(v1, int);
