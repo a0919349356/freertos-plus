@@ -65,10 +65,10 @@ void ls_command(int n, char *argv[]){
 		fio_printf(1,"romfs\r\n");
 		return;
 	}
-	if(argv[1][strlen(argv[1])-1]!='/')
-	{
-		strcat(argv[1],"/");
-	}
+	int i;
+	for(i=0;argv[1][i]!='\0';i++)
+		if(argv[1][i+1]=='\0' && argv[1][i]!='/')
+			argv[1][i+1]='/',argv[1][i+2]='\0';	
 
 	int fd=fs_open(argv[1],1,O_RDONLY);
 
