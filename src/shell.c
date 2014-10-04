@@ -60,6 +60,17 @@ int parse_command(char *str, char *argv[]){
 }
 
 void ls_command(int n, char *argv[]){
+	if(n==1)
+	{
+		fio_printf(1,"romfs\r\n");
+		return;
+	}
+
+	int fd=fs_open(argv[1],1,O_RDONLY);
+
+	
+	if(fd==1)
+		return;
 
 }
 
@@ -73,10 +84,14 @@ int filedump(const char *filename){
 
 	fio_printf(1, "\r\n");
 
-	int count;
+	int count=5;
+	int n=0;
+	fio_printf(1,"before count = %d\r\n",n);
 	while((count=fio_read(fd, buf, sizeof(buf)))>0){
 		fio_write(1, buf, count);
+		n++;
 	}
+	fio_printf(1,"after count = %d\r\n",n);
 
 	fio_close(fd);
 	return 1;
