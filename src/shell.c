@@ -164,7 +164,6 @@ void test_command(int n, char *argv[]) {
     int error;
 
     fio_printf(1, "\r\n");
-    host_action(SYS_SYSTEM, "mkdir -p output");
     handle = host_action(SYS_OPEN, "output/testfile", 8);
     if(handle == -1) {
         fio_printf(1, "Open file error!\n\r");
